@@ -95,33 +95,32 @@ public class Tablero{
      }
      
      private void moverAlfil(int i_alfil, int j_alfil, int i_peon,int j_peon, boolean dirPeon){
-         int[] posicionesAlfil = new int[2];
+         int filaAlfil = i_alfil;
+         int columnaAlfil = j_alfil;
          int direccionAux = 0;
-         posicionesAlfil[0] = i_alfil;
-         posicionesAlfil[1] = j_alfil;
          if(dirPeon) direccionAux = 1;
          else direccionAux = -1;
-         while(!noAtaca(posicionesAlfil[0], posicionesAlfil[1], i_peon, j_peon)){
+         while(!noAtaca(filaAlfil, columnaAlfil, i_peon, j_peon)){
             switch (direccionAux) {
                 case (1) -> {
-                    if (((posicionesAlfil[1] > 1) && (posicionesAlfil[1] <= j_peon)) || (posicionesAlfil[1] == rango)) { //mover de abajo a la izquierda
-                        posicionesAlfil[0]++;
-                        posicionesAlfil[1]--;
+                    if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de abajo a la izquierda
+                        filaAlfil++;
+                        columnaAlfil--;
                     } 
-                    else if (((posicionesAlfil[1] < rango) && (posicionesAlfil[1] >= j_peon)) || (posicionesAlfil[1] == 1)) { //mover de abajo a la derecha
-                        posicionesAlfil[0]++;
-                        posicionesAlfil[1]++;
+                    else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de abajo a la derecha
+                        filaAlfil++;
+                        columnaAlfil++;
                     }
                     break;
                 }
                 case (-1) -> {
-                    if (((posicionesAlfil[1] > 1) && (posicionesAlfil[1] <= j_peon)) || (posicionesAlfil[1] == rango)) { //mover de arriba a la izquierda
-                        posicionesAlfil[0]--;
-                        posicionesAlfil[1]--;
+                    if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de arriba a la izquierda
+                        filaAlfil--;
+                        columnaAlfil--;
                     }
-                    else if (((posicionesAlfil[1] < rango) && (posicionesAlfil[1] >= j_peon)) || (posicionesAlfil[1] == 1)) { //mover de arriba a la derecha
-                        posicionesAlfil[0]--;
-                        posicionesAlfil[1]++;
+                    else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de arriba a la derecha
+                        filaAlfil--;
+                        columnaAlfil++;
                     }
                     break;
                 }
@@ -129,10 +128,10 @@ public class Tablero{
                     break;
                 }
             }
-            cola.enColar("A("+posicionesAlfil[0]+","+posicionesAlfil[1]+")");
-            myTablero[posicionesAlfil[0]-1][posicionesAlfil[1]-1] = new Ficha("alfil");
+            cola.enColar("A("+filaAlfil+","+columnaAlfil+")");
+            myTablero[filaAlfil-1][columnaAlfil-1] = new Ficha("alfil");
          }
          System.out.println(cola.toString());
-         moverPeon(posicionesAlfil[0], posicionesAlfil[1], i_peon, j_peon, dirPeon);
+         moverPeon(filaAlfil, columnaAlfil, i_peon, j_peon, dirPeon);
      }
 }
