@@ -17,7 +17,7 @@ public class Test {
          int filaAlfil = 8;
          int columnaAlfil = 1;
          int filaPeon = 8;
-         int columnaPeon = 6;
+         int columnaPeon = 2;
          boolean direccionPeon = false;
          try{
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
