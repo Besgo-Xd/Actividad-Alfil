@@ -17,11 +17,11 @@ public class Test {
          int filaAlfil = 8;
          int columnaAlfil = 1;
          int filaPeon = 8;
-         int columnaPeon = 2;
+         int columnaPeon = 6;
          boolean direccionPeon = false;
          try{
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
-             t.jugar();
+             t.jugar(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
              //t.noAtaca(filaAlfil, filaAlfil, filaPeon, filaPeon);
          }catch(Exception e){
              System.out.println(e);
