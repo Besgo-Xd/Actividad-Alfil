@@ -55,10 +55,18 @@ public class Tablero{
          }
          else{
              if(valido(i_alfil, j_alfil, (i_peon+direccionAux), j_peon)){
-                 moverPeon(i_alfil, j_alfil, (i_peon+direccionAux), j_peon, dirPeon);
+                 int[] movimientos = new int[2];
+                 System.arraycopy(moverPeon((i_peon+direccionAux), j_peon), 0, movimientos, 0, 2);
+                 myTablero[movimientos[0]-1][movimientos[1]-1] = new Ficha("peon");
+                 jugar(i_alfil, j_alfil, movimientos[0], movimientos[1], dirPeon);
              }
              else{
-                 moverAlfil(i_alfil, j_alfil, (i_peon+direccionAux), j_peon, dirPeon);
+                 int[] movimientos = new int[4];
+                 System.arraycopy(moverAlfil(i_alfil, j_alfil, (i_peon+direccionAux), j_peon, dirPeon), 0, movimientos, 0, 2);
+                 System.arraycopy(moverPeon((i_peon+direccionAux), j_peon), 0, movimientos, 2, 2);
+                 myTablero[movimientos[0]-1][movimientos[1]-1] = new Ficha("alfil");
+                 myTablero[movimientos[2]-1][movimientos[3]-1] = new Ficha("peon");
+                 jugar(movimientos[0], movimientos[1], movimientos[2], movimientos[3], dirPeon);
              }
          }
      }
@@ -87,65 +95,58 @@ public class Tablero{
          return libre;
      }
      
-     private void moverPeon(int i_alfil, int j_alfil, int i_peon, int j_peon, boolean dirPeon){
+     private int[] moverPeon(int i_peon, int j_peon){
+         int[] movimientos = {i_peon, j_peon};
          cola.enColar("P("+i_peon+","+j_peon+")");
-         myTablero[i_peon-1][j_peon-1] = new Ficha("peon");
          System.out.println(cola.toString());
-         jugar(i_alfil, j_alfil, i_peon, j_peon, dirPeon);
+         return movimientos;
      }
      
-     private void moverAlfil(int i_alfil, int j_alfil, int i_peon,int j_peon, boolean dirPeon){
-         int filaAlfil = i_alfil;
-         int columnaAlfil = j_alfil;
-         int direccionAux = 0;
+     private int[] moverAlfil(int i_alfil, int j_alfil, int i_peon,int j_peon, boolean dirPeon){
+         int[] movimientos = {i_alfil, j_alfil};
+         int direccionAux;
          if(dirPeon) direccionAux = 1;
          else direccionAux = -1;
-         while(!noAtaca(filaAlfil, columnaAlfil, i_peon, j_peon)){
+         while(!noAtaca(movimientos[0], movimientos[1], i_peon, j_peon)){
             switch (direccionAux) {
                 case (1) -> {
-                    if(filaAlfil != 8){
-                        if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de abajo a la izquierda
-                            filaAlfil++;
-                            columnaAlfil--;
-                        } 
-                        else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de abajo a la derecha
-                            filaAlfil++;
-                            columnaAlfil++;
+                    if(movimientos[0] != 8){
+                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de abajo a la izquierda
+                            movimientos[0]++;
+                            movimientos[1]--;
+                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de abajo a la derecha
+                            movimientos[0]++;
+                            movimientos[1]++;
                         }
-                        else{
-                            direccionAux = -1;
-                            if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de arriba a la izquierda
-                                filaAlfil--;
-                                columnaAlfil--;
-                            }
-                            else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de arriba a la derecha
-                                filaAlfil--;
-                                columnaAlfil++;
-                            }
+                    } else {
+                        direccionAux = -1;
+                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de arriba a la izquierda
+                            movimientos[0]--;
+                            movimientos[1]--;
+                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de arriba a la derecha
+                            movimientos[0]--;
+                            movimientos[1]++;
                         }
                     }
                     break;
                 }
                 case (-1) -> {
-                    if(filaAlfil != 1){
-                        if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de arriba a la izquierda
-                            filaAlfil--;
-                            columnaAlfil--;
+                    if (movimientos[0] != 1) {
+                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de arriba a la izquierda
+                            movimientos[0]--;
+                            movimientos[1]--;
+                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de arriba a la derecha
+                            movimientos[0]--;
+                            movimientos[1]++;
                         }
-                        else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de arriba a la derecha
-                            filaAlfil--;
-                            columnaAlfil++;
-                        }
-                    }
-                    else{
+                    } else {
                         direccionAux = 1;
-                        if(((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de abajo a la izquierda
-                            filaAlfil++;
-                            columnaAlfil--;
-                        } 
-                        else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de abajo a la derecha
-                            filaAlfil++;
-                            columnaAlfil++;
+                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de abajo a la izquierda
+                            movimientos[0]++;
+                            movimientos[1]--;
+                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de abajo a la derecha
+                            movimientos[0]++;
+                            movimientos[1]++;
                         }
                     }
                     break;
@@ -154,10 +155,9 @@ public class Tablero{
                     break;
                 }
             }
-            cola.enColar("A("+filaAlfil+","+columnaAlfil+")");
-            myTablero[filaAlfil-1][columnaAlfil-1] = new Ficha("alfil");
+            cola.enColar("A("+movimientos[0]+","+movimientos[1]+")");
          }
          System.out.println(cola.toString());
-         moverPeon(filaAlfil, columnaAlfil, i_peon, j_peon, dirPeon);
+         return movimientos;
      }
 }
