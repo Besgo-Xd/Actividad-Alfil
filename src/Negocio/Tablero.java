@@ -103,24 +103,50 @@ public class Tablero{
          while(!noAtaca(filaAlfil, columnaAlfil, i_peon, j_peon)){
             switch (direccionAux) {
                 case (1) -> {
-                    if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de abajo a la izquierda
-                        filaAlfil++;
-                        columnaAlfil--;
-                    } 
-                    else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de abajo a la derecha
-                        filaAlfil++;
-                        columnaAlfil++;
+                    if(filaAlfil != 8){
+                        if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de abajo a la izquierda
+                            filaAlfil++;
+                            columnaAlfil--;
+                        } 
+                        else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de abajo a la derecha
+                            filaAlfil++;
+                            columnaAlfil++;
+                        }
+                        else{
+                            direccionAux = -1;
+                            if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de arriba a la izquierda
+                                filaAlfil--;
+                                columnaAlfil--;
+                            }
+                            else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de arriba a la derecha
+                                filaAlfil--;
+                                columnaAlfil++;
+                            }
+                        }
                     }
                     break;
                 }
                 case (-1) -> {
-                    if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de arriba a la izquierda
-                        filaAlfil--;
-                        columnaAlfil--;
+                    if(filaAlfil != 1){
+                        if (((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de arriba a la izquierda
+                            filaAlfil--;
+                            columnaAlfil--;
+                        }
+                        else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de arriba a la derecha
+                            filaAlfil--;
+                            columnaAlfil++;
+                        }
                     }
-                    else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de arriba a la derecha
-                        filaAlfil--;
-                        columnaAlfil++;
+                    else{
+                        direccionAux = 1;
+                        if(((columnaAlfil > 1) && (columnaAlfil <= j_peon)) || (columnaAlfil == rango)) { //mover de abajo a la izquierda
+                            filaAlfil++;
+                            columnaAlfil--;
+                        } 
+                        else if (((columnaAlfil < rango) && (columnaAlfil >= j_peon)) || (columnaAlfil == 1)) { //mover de abajo a la derecha
+                            filaAlfil++;
+                            columnaAlfil++;
+                        }
                     }
                     break;
                 }
