@@ -74,6 +74,8 @@ public class Tablero{
          int aux = 0;
          do{
              aux++;
+             libre = libre && ((i_alfil != i_peon)||(j_alfil != j_peon)); 
+             
              libre = libre && ((i_alfil-aux != i_peon)||(j_alfil+aux != j_peon)); //cuando el alfil va hacia arriba a la derecha
              
              libre = libre && ((i_alfil-aux != i_peon)||(j_alfil-aux != j_peon)); //cuando el alfil va hacia arriba a la izquierda
