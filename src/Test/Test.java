@@ -21,8 +21,7 @@ public class Test {
          boolean direccionPeon = false;
          try{
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
-             t.jugar(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
-             //t.noAtaca(filaAlfil, filaAlfil, filaPeon, filaPeon);
+             t.jugar();
          }catch(Exception e){
              System.out.println(e);
          }

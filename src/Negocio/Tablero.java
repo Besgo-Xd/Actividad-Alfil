@@ -5,7 +5,7 @@
  */
 package Negocio;
 
-import Modelo.Ficha;
+import Modelo.*;
 import ufps.util.colecciones_seed.Cola;
 
 /**
@@ -13,9 +13,10 @@ import ufps.util.colecciones_seed.Cola;
  * @author Brayan Guerrero 1151983 y Angie Orozco 1151798
  */
 public class Tablero{
-    private static final int rango = 8;
-    private Ficha [][]myTablero = new Ficha[rango][rango];
+    private Ficha [][]myTablero = new Ficha[8][8];
     private Cola cola = new Cola();
+    private Peon peon;
+    private Alfil alfil;
     //Adicione los atributos que considere necesarios para el correcto fucnioanmiento de su aplicación, si y solo si , no violen ninguna regla en POO
     
     public Tablero() {}
@@ -30,134 +31,47 @@ public class Tablero{
      */
     
      public Tablero(int i_alfil, int j_alfil, int i_peon,int j_peon, boolean dirPeon) throws Exception{
-         //Validacion de las posiciones iniciales
-         if(((i_alfil < 1) || (i_alfil > rango) || (j_alfil < 1) || (j_alfil > rango)) || ((i_peon < 1) || (i_peon > rango) || (j_peon < 1) || (j_peon > rango)))
+         if(((i_alfil < 1) || (i_alfil > 8) || (j_alfil < 1) || (j_alfil > 8)) || ((i_peon < 1) || (i_peon > 8) || (j_peon < 1) || (j_peon > 8)))
              throw new Exception("Coordenadas fuera de rango");
-         //Asignacion de valores
          else{
-             //Inicializacion de las fichas en el tablero
-             myTablero[i_alfil-1][j_alfil-1] = new Ficha("alfil");
-             myTablero[i_peon-1][j_peon-1] = new Ficha("peon");
-             cola.enColar("A("+i_alfil+","+j_alfil+")");
-             cola.enColar("P("+i_peon+","+j_peon+")");
+             alfil = new Alfil(i_alfil,j_alfil,"Alfil");
+             peon = new Peon(i_peon,j_peon,dirPeon,"Peon");
+             myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
+             myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
+             cola.enColar(alfil.toString());
+             cola.enColar(peon.toString());
          }
     }
      
-     public void jugar(int i_alfil, int j_alfil, int i_peon,int j_peon, boolean dirPeon){
-         //Variables auxiliares
-         int direccionAux;
-         //Inicializacion de la variable direccion la cual ayuda con la direccion hacia donde va el peon
-         if(dirPeon) direccionAux = 1;
-         else direccionAux  = -1;
-         
-         if((i_peon == 1 && !dirPeon) || (i_peon == 8 && dirPeon)){
+     public void jugar(){
+         if((peon.getFilaPeon() == 1 && !peon.isDireccionPeon()) || (peon.getFilaPeon() == 8 && peon.isDireccionPeon())){
              System.out.println("Finalizado");
          }
          else{
-             if(valido(i_alfil, j_alfil, (i_peon+direccionAux), j_peon)){
-                 int[] movimientos = new int[2];
-                 System.arraycopy(moverPeon((i_peon+direccionAux), j_peon), 0, movimientos, 0, 2);
-                 myTablero[movimientos[0]-1][movimientos[1]-1] = new Ficha("peon");
-                 jugar(i_alfil, j_alfil, movimientos[0], movimientos[1], dirPeon);
+             if(valido(alfil, peon)){
+                 peon.desplazar();
+                 myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
+                 cola.enColar(peon.toString());
+                 System.out.println(cola.toString());
+                 jugar();
              }
              else{
-                 int[] movimientos = new int[4];
-                 System.arraycopy(moverAlfil(i_alfil, j_alfil, (i_peon+direccionAux), j_peon, dirPeon), 0, movimientos, 0, 2);
-                 System.arraycopy(moverPeon((i_peon+direccionAux), j_peon), 0, movimientos, 2, 2);
-                 myTablero[movimientos[0]-1][movimientos[1]-1] = new Ficha("alfil");
-                 myTablero[movimientos[2]-1][movimientos[3]-1] = new Ficha("peon");
-                 jugar(movimientos[0], movimientos[1], movimientos[2], movimientos[3], dirPeon);
+                 alfil.desplazar(peon);
+                 peon.desplazar();
+                 myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
+                 cola.enColar(alfil.toString());
+                 myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
+                 cola.enColar(peon.toString());
+                 System.out.println(cola.toString());
+                 jugar();
              }
          }
      }
      
-     //Metodo que valida el movimiento del peon
-     private boolean valido(int i_alfil, int j_alfil, int i_peon, int j_peon){
-         return ((i_peon >= 1) && (i_peon <= rango) && noAtaca(i_alfil, j_alfil, i_peon,j_peon));
-     }
-     
-     //Metodo que determina si el alfil ataca al peon
-     private boolean noAtaca(int i_alfil, int j_alfil, int i_peon,int j_peon){
-         boolean libre = true;
-         int aux = 0;
-         do{
-             aux++;
-             libre = libre && ((i_alfil != i_peon)||(j_alfil != j_peon)); 
-             
-             libre = libre && ((i_alfil-aux != i_peon)||(j_alfil+aux != j_peon)); //cuando el alfil va hacia arriba a la derecha
-             
-             libre = libre && ((i_alfil-aux != i_peon)||(j_alfil-aux != j_peon)); //cuando el alfil va hacia arriba a la izquierda
-             
-             libre = libre && ((i_alfil+aux != i_peon)||(j_alfil+aux != j_peon));//cuando el alfil va hacia abajo a la derecha
-             
-             libre = libre && ((i_alfil+aux != i_peon)||(j_alfil-aux != j_peon));//cuando el alfil va hacia abjao a la izquierda
-         }while(aux < 7 && libre);
-         return libre;
-     }
-     
-     private int[] moverPeon(int i_peon, int j_peon){
-         int[] movimientos = {i_peon, j_peon};
-         cola.enColar("P("+i_peon+","+j_peon+")");
-         System.out.println(cola.toString());
-         return movimientos;
-     }
-     
-     private int[] moverAlfil(int i_alfil, int j_alfil, int i_peon,int j_peon, boolean dirPeon){
-         int[] movimientos = {i_alfil, j_alfil};
+     private boolean valido(Alfil alfil, Peon peon){
          int direccionAux;
-         if(dirPeon) direccionAux = 1;
+         if(peon.isDireccionPeon()) direccionAux = 1;
          else direccionAux = -1;
-         while(!noAtaca(movimientos[0], movimientos[1], i_peon, j_peon)){
-            switch (direccionAux) {
-                case (1) -> {
-                    if(movimientos[0] != 8){
-                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de abajo a la izquierda
-                            movimientos[0]++;
-                            movimientos[1]--;
-                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de abajo a la derecha
-                            movimientos[0]++;
-                            movimientos[1]++;
-                        }
-                    } else {
-                        direccionAux = -1;
-                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de arriba a la izquierda
-                            movimientos[0]--;
-                            movimientos[1]--;
-                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de arriba a la derecha
-                            movimientos[0]--;
-                            movimientos[1]++;
-                        }
-                    }
-                    break;
-                }
-                case (-1) -> {
-                    if (movimientos[0] != 1) {
-                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de arriba a la izquierda
-                            movimientos[0]--;
-                            movimientos[1]--;
-                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de arriba a la derecha
-                            movimientos[0]--;
-                            movimientos[1]++;
-                        }
-                    } else {
-                        direccionAux = 1;
-                        if (((movimientos[1] > 1) && (movimientos[1] <= j_peon)) || (movimientos[1] == rango)) { //mover de abajo a la izquierda
-                            movimientos[0]++;
-                            movimientos[1]--;
-                        } else if (((movimientos[1] < rango) && (movimientos[1] >= j_peon)) || (movimientos[1] == 1)) { //mover de abajo a la derecha
-                            movimientos[0]++;
-                            movimientos[1]++;
-                        }
-                    }
-                    break;
-                }
-                default -> {
-                    break;
-                }
-            }
-            cola.enColar("A("+movimientos[0]+","+movimientos[1]+")");
-         }
-         System.out.println(cola.toString());
-         return movimientos;
+         return (((peon.getFilaPeon()+direccionAux) >= 1) && ((peon.getFilaPeon()+direccionAux) <= 8) && alfil.noAtaca(peon));
      }
 }
