@@ -68,6 +68,7 @@ public class Tablero{
          }
      }
      
+     //Metodo que valida el movimiento del peon en el tablero
      private boolean valido(Alfil alfil, Peon peon){
          int direccionAux;
          if(peon.isDireccionPeon()) direccionAux = 1;
