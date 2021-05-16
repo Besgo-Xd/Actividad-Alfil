@@ -6,9 +6,7 @@
 
 package Test;
 
-import Modelo.Alfil;
 import Modelo.Ficha;
-import Modelo.Peon;
 import Negocio.Tablero;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -20,7 +18,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.ArrayList;
 
 /**
  * 
@@ -33,24 +30,16 @@ public class Test {
          int filaPeon = 8;
          int columnaPeon = 8;
          boolean direccionPeon = false;
-         /*
          try{
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
              t.jugar();
+             crearPDF(t.getMyTablero());
          }catch(Exception e){
              System.out.println(e);
-         }*/
-         
-         Peon peon = new Peon(filaPeon, columnaPeon, direccionPeon, "Peon");
-         Alfil alfil = new Alfil(filaAlfil, columnaAlfil, "Alfil");
-         ArrayList<Ficha> lista = new ArrayList();
-         lista.add(peon);
-         lista.add(alfil);
-         
-         crearPDF(lista);
+         }
     }
     
-    public static void crearPDF(ArrayList<Ficha> lista) throws FileNotFoundException, DocumentException{
+    public static void crearPDF(Ficha[][] tablero) throws FileNotFoundException, DocumentException{
         //Se crea el documento 
         Document documento = new Document();
         
@@ -65,23 +54,28 @@ public class Test {
         
         //Parrafo
         Paragraph titulo = new Paragraph(("Mi Tablero \n\n"),
-                FontFactory.getFont("arial",
-                        22,
-                        Font.BOLD,
-                        BaseColor.BLUE
-                        )
-                        );
+                FontFactory.getFont("arial", 22, Font.BOLD, BaseColor.BLUE)
+        );
                 
         //Añadimos el titulo al documento
         documento.add(titulo);
 
         //Creamos una tabla
-        PdfPTable tabla = new PdfPTable(2);
-        tabla.addCell("NOMBRE");
+        PdfPTable tabla = new PdfPTable(8);
+        tabla.addCell("1");
+        tabla.addCell("2");
+        tabla.addCell("3");
+        tabla.addCell("4");
+        tabla.addCell("5");
+        tabla.addCell("6");
+        tabla.addCell("7");
+        tabla.addCell("8");
 
-        for (int i = 0; i < lista.size(); i++) {
-            tabla.addCell("" + i);
-            tabla.addCell(lista.get(i).getNombreFicha());
+        for (int i = 0; i < tablero.length; i++) {
+            for(int j = 0; j < tablero[0].length; j++ ){
+                tabla.addCell("");
+                if(tablero[i][j] != null) tabla.addCell(tablero[i][j].getNombreFicha());
+            }
         }
 
         //Añadimos la tabala al documento
