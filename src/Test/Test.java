@@ -62,18 +62,10 @@ public class Test {
 
         //Creamos una tabla
         PdfPTable tabla = new PdfPTable(8);
-        tabla.addCell("1");
-        tabla.addCell("2");
-        tabla.addCell("3");
-        tabla.addCell("4");
-        tabla.addCell("5");
-        tabla.addCell("6");
-        tabla.addCell("7");
-        tabla.addCell("8");
 
         for (int i = 0; i < tablero.length; i++) {
             for(int j = 0; j < tablero[0].length; j++ ){
-                tabla.addCell("");
+                if(tablero[i][j] == null) tabla.addCell("");
                 if(tablero[i][j] != null) tabla.addCell(tablero[i][j].getNombreFicha());
             }
         }
