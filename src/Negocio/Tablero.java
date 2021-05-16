@@ -42,6 +42,14 @@ public class Tablero{
              cola.enColar(peon.toString());
          }
     }
+
+    public Ficha[][] getMyTablero() {
+        return myTablero;
+    }
+
+    public void setMyTablero(Ficha[][] myTablero) {
+        this.myTablero = myTablero;
+    }
      
      public void jugar(){
          if((peon.getFilaPeon() == 1 && !peon.isDireccionPeon()) || (peon.getFilaPeon() == 8 && peon.isDireccionPeon())){
