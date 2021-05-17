@@ -33,7 +33,7 @@ public class Test {
          try{
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
              t.jugar();
-             crearPDF(t.getMyTablero());
+             t.crearPdf();
          }catch(Exception e){
              System.out.println(e);
          }
