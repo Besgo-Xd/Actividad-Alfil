@@ -6,9 +6,6 @@
 package Negocio;
 
 import Modelo.*;
-import Vista.CrearPDF;
-import com.itextpdf.text.DocumentException;
-import java.io.IOException;
 import java.util.ArrayList;
 import ufps.util.colecciones_seed.Cola;
 
@@ -19,7 +16,6 @@ import ufps.util.colecciones_seed.Cola;
 public class Tablero{
     private Ficha [][]myTablero = new Ficha[8][8];
     private ArrayList<Ficha[][]> listaTableros = new ArrayList();
-    private CrearPDF pdf = new CrearPDF();
     private Cola cola = new Cola();
     private Peon peon;
     private Alfil alfil;
@@ -44,7 +40,7 @@ public class Tablero{
              peon = new Peon(i_peon,j_peon,dirPeon,"Peon");
              myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
              myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
-             listaTableros.add(myTablero);
+             listaTableros.add(copiaTablero());
              cola.enColar(alfil.toString());
              cola.enColar(peon.toString());
          }
@@ -54,16 +50,12 @@ public class Tablero{
         return myTablero;
     }
 
-    public void setMyTablero(Ficha[][] myTablero) {
-        this.myTablero = myTablero;
-    }
-
     public ArrayList<Ficha[][]> getListaTableros() {
         return listaTableros;
     }
-    
-    public void crearPdf() throws DocumentException, IOException {
-        pdf.crearPDF(listaTableros);
+
+    public Cola getCola() {
+        return cola;
     }
      
      public void jugar(){
@@ -74,7 +66,7 @@ public class Tablero{
              if(valido(alfil, peon)){
                  peon.desplazar();
                  myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
-                 listaTableros.add(myTablero);
+                 listaTableros.add(copiaTablero());
                  cola.enColar(peon.toString());
                  System.out.println(cola.toString());
                  jugar();
@@ -85,12 +77,21 @@ public class Tablero{
                  myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
                  cola.enColar(alfil.toString());
                  myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
-                 listaTableros.add(myTablero);
+                 listaTableros.add(copiaTablero());
                  cola.enColar(peon.toString());
                  System.out.println(cola.toString());
                  jugar();
              }
          }
+     }
+     
+     //Metodo que retorna una copia del tablero actual
+     public Ficha[][] copiaTablero(){
+         Ficha[][] copia = new Ficha[8][8];
+         for (int i = 0; i < 8; i++) {
+             System.arraycopy(myTablero[i], 0, copia[i], 0, myTablero[i].length);
+         }
+         return copia;
      }
      
      //Metodo que valida el movimiento del peon en el tablero

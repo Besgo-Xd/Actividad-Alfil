@@ -7,6 +7,7 @@
 package Test;
 
 import Negocio.Tablero;
+import Vista.CrearPDF;
 
 /**
  * 
@@ -21,8 +22,9 @@ public class Test {
          boolean direccionPeon = false;
          try{
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
+             CrearPDF pdf = new CrearPDF();
              t.jugar();
-             t.crearPdf();
+             pdf.crearPDF(t.getListaTableros(), t.getCola());
          }catch(Exception e){
              System.out.println(e);
          }
