@@ -6,6 +6,10 @@
 package Negocio;
 
 import Modelo.*;
+import Vista.CrearPDF;
+import com.itextpdf.text.DocumentException;
+import java.io.IOException;
+import java.util.ArrayList;
 import ufps.util.colecciones_seed.Cola;
 
 /**
@@ -14,6 +18,8 @@ import ufps.util.colecciones_seed.Cola;
  */
 public class Tablero{
     private Ficha [][]myTablero = new Ficha[8][8];
+    private ArrayList<Ficha[][]> listaTableros = new ArrayList();
+    private CrearPDF pdf = new CrearPDF();
     private Cola cola = new Cola();
     private Peon peon;
     private Alfil alfil;
@@ -38,6 +44,7 @@ public class Tablero{
              peon = new Peon(i_peon,j_peon,dirPeon,"Peon");
              myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
              myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
+             listaTableros.add(myTablero);
              cola.enColar(alfil.toString());
              cola.enColar(peon.toString());
          }
@@ -50,6 +57,10 @@ public class Tablero{
     public void setMyTablero(Ficha[][] myTablero) {
         this.myTablero = myTablero;
     }
+
+    public void crearPdf() throws DocumentException, IOException {
+        pdf.crearPDF(listaTableros);
+    }
      
      public void jugar(){
          if((peon.getFilaPeon() == 1 && !peon.isDireccionPeon()) || (peon.getFilaPeon() == 8 && peon.isDireccionPeon())){
@@ -59,6 +70,7 @@ public class Tablero{
              if(valido(alfil, peon)){
                  peon.desplazar();
                  myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
+                 listaTableros.add(myTablero);
                  cola.enColar(peon.toString());
                  System.out.println(cola.toString());
                  jugar();
@@ -69,6 +81,7 @@ public class Tablero{
                  myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
                  cola.enColar(alfil.toString());
                  myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
+                 listaTableros.add(myTablero);
                  cola.enColar(peon.toString());
                  System.out.println(cola.toString());
                  jugar();
