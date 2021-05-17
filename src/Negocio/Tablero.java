@@ -58,6 +58,10 @@ public class Tablero{
         this.myTablero = myTablero;
     }
 
+    public ArrayList<Ficha[][]> getListaTableros() {
+        return listaTableros;
+    }
+    
     public void crearPdf() throws DocumentException, IOException {
         pdf.crearPDF(listaTableros);
     }

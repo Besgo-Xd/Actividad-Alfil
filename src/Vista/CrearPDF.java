@@ -37,28 +37,27 @@ public class CrearPDF {
 
         Paragraph titulo = new Paragraph(("Tablero de Ajedrez \n\n"), FontFactory.getFont("arial", 22, Font.BOLD, BaseColor.BLUE));
         titulo.setAlignment(Element.ALIGN_CENTER);
-        Paragraph inicio = new Paragraph(("Inicio \n\n"), FontFactory.getFont("arial", 10, Font.BOLD, BaseColor.BLACK));
+        Paragraph inicio = new Paragraph(("Inicio \n\n"), FontFactory.getFont("arial", 20, Font.BOLD, BaseColor.BLACK));
 
         documento.add(titulo);
         documento.add(inicio);
-
-        for (int i = 0; i < lista.size(); i++) {
-            Paragraph parrafo = new Paragraph(("#"+(i+1)+" Paso: \n\n"), FontFactory.getFont("arial", 10, Font.BOLD, BaseColor.BLACK));
+        
+       int counter = 1;
+       for (Ficha[][] tablero: lista){
+           counter++;
+            Paragraph parrafo = new Paragraph(("#"+(counter)+" Paso: \n\n"), FontFactory.getFont("arial", 20, Font.BOLD, BaseColor.BLACK));
             PdfPTable tabla = new PdfPTable(8);
-            for (int j = 0; j < lista.get(i).length; j++) {
-                for(int z = 0; z < lista.get(i)[0].length; z++){
-                    if (lista.get(i)[j][z] == null) {
-                        tabla.addCell("");
-                    }
-                    if (lista.get(i)[j][z] != null) {
-                        if(lista.get(i)[j][z].getNombreFicha().equals("Peon")) tabla.addCell(peon);
+            for (int i = 0; i < tablero.length; i++) {
+                for(int j = 0; j < tablero[0].length; j++){
+                    if (tablero[i][j] == null)  tabla.addCell("");
+                    else if (tablero[i][j] != null) {
+                        if(tablero[i][j].getNombreFicha().equals("Peon")) tabla.addCell(peon);
                         else tabla.addCell(alfil);
                     }
                 }
             }
             documento.add(tabla);
             documento.add(parrafo);
-            documento.newPage();
         }
 
         documento.close();
