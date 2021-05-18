@@ -33,7 +33,8 @@ public class CrearPDF {
         FileOutputStream ficheroPDF = new FileOutputStream("Tablero.pdf");
         PdfWriter.getInstance(documento, ficheroPDF);
         Image peon = Image.getInstance("Peon.png");  
-        Image alfil = Image.getInstance("Alfil.png");       
+        Image alfil = Image.getInstance("Alfil.png");
+        Image blanco = Image.getInstance("blanco.png");
         documento.open();
 
         Paragraph titulo = new Paragraph(("Tablero de Ajedrez \n\n"), FontFactory.getFont("arial", 22, Font.BOLD, BaseColor.BLUE));
@@ -50,7 +51,7 @@ public class CrearPDF {
             PdfPTable tabla = new PdfPTable(8);
             for (int i = 0; i < tablero.length; i++) {
                 for(int j = 0; j < tablero[0].length; j++){
-                    if (tablero[i][j] == null)  tabla.addCell("");
+                    if (tablero[i][j] == null)  tabla.addCell(blanco);
                     else if (tablero[i][j] != null) {
                         if(tablero[i][j].getNombreFicha().equals("Peon")) tabla.addCell(peon);
                         else tabla.addCell(alfil);
