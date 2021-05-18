@@ -39,17 +39,8 @@ public class Tablero{
          else{
              alfil = new Alfil(i_alfil,j_alfil,"Alfil");
              peon = new Peon(i_peon,j_peon,dirPeon,"Peon");
-             myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
-             myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
-             listaTableros.add(copiaTablero());
-             cola.enColar(alfil.toString());
-             cola.enColar(peon.toString());
-             listaColas.enColar(cola.toString());
+             guardar(false);
          }
-    }
-
-    public Ficha[][] getMyTablero() {
-        return myTablero;
     }
 
     public ArrayList<Ficha[][]> getListaTableros() {
@@ -67,30 +58,20 @@ public class Tablero{
          else{
              if(valido(alfil, peon)){
                  peon.desplazar();
-                 myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
-                 listaTableros.add(copiaTablero());
-                 cola.enColar(peon.toString());
-                 listaColas.enColar(cola.toString());
-                 System.out.println(cola.toString());
+                 guardar(true);
                  jugar();
              }
              else{
                  alfil.desplazar(peon);
                  peon.desplazar();
-                 myTablero[alfil.getFilaAlfil()-1][alfil.getColumnaAlfil()-1] = alfil;
-                 cola.enColar(alfil.toString());
-                 myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
-                 listaTableros.add(copiaTablero());
-                 cola.enColar(peon.toString());
-                 listaColas.enColar(cola.toString());
-                 System.out.println(cola.toString());
+                 guardar(false);
                  jugar();
              }
          }
      }
      
      //Metodo que retorna una copia del tablero actual
-     public Ficha[][] copiaTablero(){
+     private Ficha[][] copiaTablero(){
          Ficha[][] copia = new Ficha[8][8];
          for (int i = 0; i < 8; i++) {
              System.arraycopy(myTablero[i], 0, copia[i], 0, myTablero[i].length);
@@ -104,5 +85,23 @@ public class Tablero{
          if(peon.isDireccionPeon()) direccionAux = 1;
          else direccionAux = -1;
          return (((peon.getFilaPeon()+direccionAux) >= 1) && ((peon.getFilaPeon()+direccionAux) <= 8) && alfil.noAtaca(peon));
+     }
+     
+     private void guardar(boolean valido){
+         if(valido){
+             myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
+             listaTableros.add(copiaTablero());
+             cola.enColar(peon.toString());
+             listaColas.enColar(cola.toString());
+             System.out.println(cola.toString());
+         }else{
+             myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = alfil;
+             cola.enColar(alfil.toString());
+             myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
+             listaTableros.add(copiaTablero());
+             cola.enColar(peon.toString());
+             listaColas.enColar(cola.toString());
+             System.out.println(cola.toString());
+         }
      }
 }
