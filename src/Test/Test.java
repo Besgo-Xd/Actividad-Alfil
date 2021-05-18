@@ -24,7 +24,7 @@ public class Test {
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);
              CrearPDF pdf = new CrearPDF();
              t.jugar();
-             pdf.crearPDF(t.getListaTableros(), t.getCola());
+             pdf.crearPDF(t.getListaTableros(), t.getListaColas());
          }catch(Exception e){
              System.out.println(e);
          }

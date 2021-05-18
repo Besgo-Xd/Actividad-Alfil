@@ -17,6 +17,7 @@ public class Tablero{
     private Ficha [][]myTablero = new Ficha[8][8];
     private ArrayList<Ficha[][]> listaTableros = new ArrayList();
     private Cola cola = new Cola();
+    private Cola listaColas = new Cola();
     private Peon peon;
     private Alfil alfil;
     //Adicione los atributos que considere necesarios para el correcto fucnioanmiento de su aplicación, si y solo si , no violen ninguna regla en POO
@@ -43,6 +44,7 @@ public class Tablero{
              listaTableros.add(copiaTablero());
              cola.enColar(alfil.toString());
              cola.enColar(peon.toString());
+             listaColas.enColar(cola.toString());
          }
     }
 
@@ -54,8 +56,8 @@ public class Tablero{
         return listaTableros;
     }
 
-    public Cola getCola() {
-        return cola;
+    public Cola getListaColas() {
+        return listaColas;
     }
      
      public void jugar(){
@@ -68,6 +70,7 @@ public class Tablero{
                  myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
                  listaTableros.add(copiaTablero());
                  cola.enColar(peon.toString());
+                 listaColas.enColar(cola.toString());
                  System.out.println(cola.toString());
                  jugar();
              }
@@ -79,6 +82,7 @@ public class Tablero{
                  myTablero[peon.getFilaPeon()-1][peon.getColumnaPeon()-1] = peon;
                  listaTableros.add(copiaTablero());
                  cola.enColar(peon.toString());
+                 listaColas.enColar(cola.toString());
                  System.out.println(cola.toString());
                  jugar();
              }

@@ -46,7 +46,7 @@ public class CrearPDF {
        int counter = 1;
        for (Ficha[][] tablero: lista){
             Paragraph parrafo = new Paragraph(("#"+(counter)+" Paso: \n\n"), FontFactory.getFont("arial", 20, Font.BOLD, BaseColor.BLACK));
-            Paragraph ruta = new Paragraph(("Ruta :"+cola.toString()), FontFactory.getFont("arial", 10, Font.BOLD, BaseColor.BLACK));
+            Paragraph ruta = new Paragraph(("Ruta :"+cola.deColar()), FontFactory.getFont("arial", 10, Font.BOLD, BaseColor.BLACK));
             PdfPTable tabla = new PdfPTable(8);
             for (int i = 0; i < tablero.length; i++) {
                 for(int j = 0; j < tablero[0].length; j++){
