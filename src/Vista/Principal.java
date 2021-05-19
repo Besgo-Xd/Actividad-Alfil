@@ -18,11 +18,14 @@ import java.util.logging.Logger;
 public class Principal extends javax.swing.JFrame {
     private Tablero tablero;
     private CrearPDF pdf = new CrearPDF();
+    private boolean dirPeon;
+    private javax.swing.JOptionPane mensaje;
     /**
      * Creates new form Principal
      */
     public Principal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -34,12 +37,13 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
         panel1 = new java.awt.Panel();
         label1 = new java.awt.Label();
         panel2 = new java.awt.Panel();
         panel3 = new java.awt.Panel();
         label2 = new java.awt.Label();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cboDireccion = new javax.swing.JComboBox<>();
         jugarBottom = new javax.swing.JButton();
         imprimirBottom = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -50,6 +54,17 @@ public class Principal extends javax.swing.JFrame {
         columnaPeon = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -90,20 +105,20 @@ public class Principal extends javax.swing.JFrame {
 
         label2.setText("Proyecto realizado por: Brayan Guerrero cód. 1151983 y Angie Orozco cód. 1151798");
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2" }));
-        jComboBox1.setToolTipText("");
-        jComboBox1.setBorder(null);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cboDireccion.setBackground(new java.awt.Color(255, 255, 255));
+        cboDireccion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        cboDireccion.setForeground(new java.awt.Color(0, 0, 0));
+        cboDireccion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ir hacia abajo", "Ir hacia arriba" }));
+        cboDireccion.setToolTipText("");
+        cboDireccion.setBorder(null);
+        cboDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cboDireccionActionPerformed(evt);
             }
         });
 
         jugarBottom.setBackground(new java.awt.Color(204, 204, 255));
-        jugarBottom.setForeground(new java.awt.Color(255, 255, 255));
+        jugarBottom.setForeground(new java.awt.Color(0, 0, 0));
         jugarBottom.setText("Jugar");
         jugarBottom.setToolTipText("");
         jugarBottom.addActionListener(new java.awt.event.ActionListener() {
@@ -113,7 +128,7 @@ public class Principal extends javax.swing.JFrame {
         });
 
         imprimirBottom.setBackground(new java.awt.Color(204, 204, 255));
-        imprimirBottom.setForeground(new java.awt.Color(255, 255, 255));
+        imprimirBottom.setForeground(new java.awt.Color(0, 0, 0));
         imprimirBottom.setText("Imprimir");
         imprimirBottom.setToolTipText("");
         imprimirBottom.addActionListener(new java.awt.event.ActionListener() {
@@ -132,16 +147,21 @@ public class Principal extends javax.swing.JFrame {
 
         filaAlfil.setBackground(new java.awt.Color(255, 255, 255));
         filaAlfil.setForeground(new java.awt.Color(0, 0, 0));
+        filaAlfil.setMinimumSize(new java.awt.Dimension(25, 25));
+        filaAlfil.setPreferredSize(new java.awt.Dimension(25, 25));
 
         columnaAlfil.setBackground(new java.awt.Color(255, 255, 255));
         columnaAlfil.setForeground(new java.awt.Color(0, 0, 0));
+        columnaAlfil.setPreferredSize(new java.awt.Dimension(25, 25));
 
         filaPeon.setBackground(new java.awt.Color(255, 255, 255));
         filaPeon.setForeground(new java.awt.Color(0, 0, 0));
         filaPeon.setToolTipText("");
+        filaPeon.setPreferredSize(new java.awt.Dimension(25, 25));
 
         columnaPeon.setBackground(new java.awt.Color(255, 255, 255));
         columnaPeon.setForeground(new java.awt.Color(0, 0, 0));
+        columnaPeon.setPreferredSize(new java.awt.Dimension(25, 25));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -187,7 +207,7 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(columnaPeon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(79, 79, 79)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
         panel3Layout.setVerticalGroup(
@@ -197,7 +217,7 @@ public class Principal extends javax.swing.JFrame {
                     .addGroup(panel3Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
                         .addGroup(panel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cboDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3)
                             .addComponent(filaPeon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -242,9 +262,10 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void cboDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboDireccionActionPerformed
+        if(cboDireccion.getSelectedItem().toString().equals("Ir hacia abajo")) this.dirPeon = true;
+        else this.dirPeon = false;
+    }//GEN-LAST:event_cboDireccionActionPerformed
 
     private void jugarBottomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarBottomActionPerformed
         int i_alfil = Integer.parseInt(filaAlfil.getText());
@@ -253,10 +274,12 @@ public class Principal extends javax.swing.JFrame {
         int j_peon = Integer.parseInt(columnaPeon.getText());
         
         try {
-            tablero = new Tablero(i_alfil, j_alfil, i_peon, j_peon, false);
+            tablero = new Tablero(i_alfil, j_alfil, i_peon, j_peon, this.dirPeon);
             tablero.jugar();
+            mensaje.showMessageDialog(null, "EL JUEGO YA FUE PROCESADO");
         } catch (Exception ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            mensaje.showMessageDialog(null, ex);
         }
     }//GEN-LAST:event_jugarBottomActionPerformed
 
@@ -306,12 +329,13 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cboDireccion;
     private javax.swing.JTextField columnaAlfil;
     private javax.swing.JTextField columnaPeon;
     private javax.swing.JTextField filaAlfil;
     private javax.swing.JTextField filaPeon;
     private javax.swing.JButton imprimirBottom;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
