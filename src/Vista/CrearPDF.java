@@ -14,6 +14,8 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Font;
@@ -44,9 +46,12 @@ public class CrearPDF {
         documento.add(titulo);
         documento.add(inicio);
         
-       int counter = 1;
+       int counter = 0;
        for (Ficha[][] tablero: lista){
-            Paragraph parrafo = new Paragraph(("#"+(counter)+" Paso: \n\n"), FontFactory.getFont("arial", 20, Font.BOLD, BaseColor.BLACK));
+           if(counter!=0){
+                Paragraph parrafo = new Paragraph(("#"+(counter)+" Paso: \n\n"), FontFactory.getFont("arial", 20, Font.BOLD, BaseColor.BLACK));
+                documento.add(parrafo);
+           }
             Paragraph ruta = new Paragraph(("Ruta :"+cola.deColar()), FontFactory.getFont("arial", 10, Font.BOLD, BaseColor.BLACK));
             PdfPTable tabla = new PdfPTable(8);
             for (int i = 0; i < tablero.length; i++) {
@@ -61,7 +66,6 @@ public class CrearPDF {
             documento.add(tabla);
             documento.add(ruta);
             documento.newPage();
-            documento.add(parrafo);
             counter++;
         }
 
