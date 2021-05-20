@@ -63,7 +63,7 @@ public class Tablero{
              }
              else{
                  alfil.desplazar(peon);
-                 peon.desplazar();
+                 if(valido(alfil, peon))peon.desplazar();
                  guardar(false);
                  jugar();
              }
@@ -90,16 +90,17 @@ public class Tablero{
      private void guardar(boolean valido){
          if(valido){
              myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
-             listaTableros.add(copiaTablero());
              cola.enColar(peon.toString());
-             listaColas.enColar(cola.toString());
              System.out.println(cola.toString());
          }else{
              myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = alfil;
              cola.enColar(alfil.toString());
-             myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
+             if(valido(alfil, peon)){
+                myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
+                cola.enColar(peon.toString());
+             }
              listaTableros.add(copiaTablero());
-             cola.enColar(peon.toString());
+             myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = null;
              listaColas.enColar(cola.toString());
              System.out.println(cola.toString());
          }

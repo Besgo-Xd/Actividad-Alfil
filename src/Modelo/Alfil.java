@@ -61,7 +61,7 @@ public class Alfil extends Ficha{
         int direccionAux;
         if (peon.isDireccionPeon()) direccionAux = 1;
         else direccionAux = -1;
-        while (!noAtaca(peon)) {
+        //while (!noAtaca(peon)) {
             switch (direccionAux) {
                 case (1) -> {
                     if (filaAlfil != 8) {
@@ -109,7 +109,7 @@ public class Alfil extends Ficha{
                     break;
                 }
             }
-        }
+        //}
     }
 
     @Override
