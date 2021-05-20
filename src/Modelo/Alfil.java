@@ -73,8 +73,15 @@ public class Alfil extends Ficha{
                             columnaAlfil++;
                         }
                     } else {
-                        direccionAux = -1;
-                        if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de arriba a la izquierda
+                        if (columnaAlfil == 2) {
+                            filaAlfil--;
+                            columnaAlfil++;
+                        }
+                        else if (columnaAlfil == 7) {
+                            filaAlfil--;
+                            columnaAlfil--;
+                        }
+                        else if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de arriba a la izquierda
                             filaAlfil--;
                             columnaAlfil--;
                         } else if (((columnaAlfil < 8) && (columnaAlfil >= peon.getColumnaPeon())) || (columnaAlfil == 1)) { //mover de arriba a la derecha
@@ -94,13 +101,23 @@ public class Alfil extends Ficha{
                             columnaAlfil++;
                         }
                     } else {
-                        direccionAux = 1;
                         if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de abajo a la izquierda
-                            filaAlfil++;
-                            columnaAlfil--;
-                        } else if (((columnaAlfil < 8) && (columnaAlfil >= peon.getColumnaPeon())) || (columnaAlfil == 1)) { //mover de abajo a la derecha
-                            filaAlfil++;
-                            columnaAlfil++;
+                            if (columnaAlfil == 2) {
+                                filaAlfil++;
+                                columnaAlfil++;
+                            } else {
+                                filaAlfil++;
+                                columnaAlfil--;
+                            }
+                        } 
+                        else if (((columnaAlfil < 8) && (columnaAlfil >= peon.getColumnaPeon())) || (columnaAlfil == 1)) { //mover de abajo a la derecha
+                            if (columnaAlfil == 7) {
+                                filaAlfil++;
+                                columnaAlfil--;
+                            } else {
+                                filaAlfil++;
+                                columnaAlfil++;
+                            }
                         }
                     }
                     break;

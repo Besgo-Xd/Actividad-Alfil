@@ -96,7 +96,7 @@ public class Tablero{
          if(valido){
              myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
              cola.enColar(peon.toString());
-             //System.out.println(cola.toString());
+             System.out.println(cola.toString());
          }else{
              myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = alfil;
              cola.enColar(alfil.toString());
