@@ -57,14 +57,11 @@ public class Tablero{
          }
          else{
              if(valido(alfil, peon)){
-                 peon.desplazar();
-                 guardar(true);
+                 seguir(true);
                  jugar();
              }
              else{
-                 alfil.desplazar(peon);
-                 if(valido(alfil, peon))peon.desplazar();
-                 guardar(false);
+                 seguir(false);
                  jugar();
              }
          }
@@ -85,6 +82,19 @@ public class Tablero{
          if(peon.isDireccionPeon()) direccionAux = 1;
          else direccionAux = -1;
          return (((peon.getFilaPeon()+direccionAux) >= 1) && ((peon.getFilaPeon()+direccionAux) <= 8) && alfil.noAtaca(peon));
+     }
+     
+     private void seguir(boolean valido){
+         if (valido(alfil, peon)) {
+             peon.desplazar();
+             guardar(valido);
+             jugar();
+         } else {
+             alfil.desplazar(peon);
+             if (valido(alfil, peon)) peon.desplazar();
+             guardar(valido);
+             jugar();
+         }
      }
      
      private void guardar(boolean valido){

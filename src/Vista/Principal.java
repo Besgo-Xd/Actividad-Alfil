@@ -105,7 +105,7 @@ public class Principal extends javax.swing.JFrame {
         panel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         label2.setText("Proyecto realizado por: Brayan Guerrero cód. 1151983 y Angie Orozco cód. 1151798");
-        panel3.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 295, -1, -1));
+        panel3.add(label2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 290, -1, -1));
 
         cboDireccion.setBackground(new java.awt.Color(255, 255, 255));
         cboDireccion.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -129,7 +129,7 @@ public class Principal extends javax.swing.JFrame {
                 jugarBottomActionPerformed(evt);
             }
         });
-        panel3.add(jugarBottom, new org.netbeans.lib.awtextra.AbsoluteConstraints(289, 260, -1, -1));
+        panel3.add(jugarBottom, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 260, -1, -1));
 
         imprimirBottom.setBackground(new java.awt.Color(204, 204, 255));
         imprimirBottom.setForeground(new java.awt.Color(0, 0, 0));
@@ -177,7 +177,7 @@ public class Principal extends javax.swing.JFrame {
         columnaPeon.setBackground(new java.awt.Color(255, 255, 255));
         columnaPeon.setForeground(new java.awt.Color(0, 0, 0));
         columnaPeon.setPreferredSize(new java.awt.Dimension(25, 25));
-        panel3.add(columnaPeon, new org.netbeans.lib.awtextra.AbsoluteConstraints(452, 112, -1, -1));
+        panel3.add(columnaPeon, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
@@ -187,7 +187,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Columna:");
-        panel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(382, 114, -1, -1));
+        panel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
