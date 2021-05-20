@@ -61,7 +61,6 @@ public class Alfil extends Ficha{
         int direccionAux;
         if (peon.isDireccionPeon()) direccionAux = 1;
         else direccionAux = -1;
-        //while (!noAtaca(peon)) {
             switch (direccionAux) {
                 case (1) -> {
                     if (filaAlfil != 8) {
@@ -93,7 +92,11 @@ public class Alfil extends Ficha{
                 }
                 case (-1) -> {
                     if (filaAlfil != 1) {
-                        if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de arriba a la izquierda
+                        if(columnaAlfil==7){
+                            filaAlfil--;
+                            columnaAlfil++;
+                        }
+                        else if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de arriba a la izquierda
                             filaAlfil--;
                             columnaAlfil--;
                         } else if (((columnaAlfil < 8) && (columnaAlfil >= peon.getColumnaPeon())) || (columnaAlfil == 1)) { //mover de arriba a la derecha
@@ -101,34 +104,31 @@ public class Alfil extends Ficha{
                             columnaAlfil++;
                         }
                     } else {
-                        if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de abajo a la izquierda
-                            if (columnaAlfil == 2) {
-                                filaAlfil++;
-                                columnaAlfil++;
-                            } else {
-                                filaAlfil++;
-                                columnaAlfil--;
-                            }
+                        if (columnaAlfil == 2) {
+                            filaAlfil++;
+                            columnaAlfil++;
+                        }
+                        else if(columnaAlfil==7){
+                            filaAlfil++;
+                            columnaAlfil--;
+                        }
+                        else if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de abajo a la izquierda
+                            filaAlfil++;
+                            columnaAlfil--;
                         } 
                         else if (((columnaAlfil < 8) && (columnaAlfil >= peon.getColumnaPeon())) || (columnaAlfil == 1)) { //mover de abajo a la derecha
-                            if (columnaAlfil == 7) {
-                                filaAlfil++;
-                                columnaAlfil--;
-                            } else {
-                                filaAlfil++;
-                                columnaAlfil++;
+                            filaAlfil++;
+                            columnaAlfil++;
                             }
                         }
-                    }
                     break;
-                }
+                    }
                 default -> {
                     break;
                 }
             }
-        //}
     }
-
+    
     @Override
     public String toString() {
         return "A("+filaAlfil + ","+columnaAlfil + ')';
