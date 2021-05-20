@@ -39,7 +39,13 @@ public class Tablero{
          else{
              alfil = new Alfil(i_alfil,j_alfil,"Alfil");
              peon = new Peon(i_peon,j_peon,dirPeon,"Peon");
-             guardar(false);
+             myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = alfil;
+             cola.enColar(alfil.toString());
+             myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
+             cola.enColar(peon.toString());
+             listaTableros.add(copiaTablero());
+             listaColas.enColar(cola.toString());
+             myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = null;
          }
     }
 
@@ -57,11 +63,13 @@ public class Tablero{
          }
          else{
              if(valido(alfil, peon)){
-                 seguir(true);
+                 peon.desplazar();
+                 guardar(true);
                  jugar();
              }
              else{
-                 seguir(false);
+                 alfil.desplazar(peon);
+                 guardar(false);
                  jugar();
              }
          }
@@ -84,31 +92,21 @@ public class Tablero{
          return (((peon.getFilaPeon()+direccionAux) >= 1) && ((peon.getFilaPeon()+direccionAux) <= 8) && alfil.noAtaca(peon));
      }
      
-     private void seguir(boolean valido){
-         if (valido(alfil, peon)) {
-             peon.desplazar();
-             guardar(valido);
-             jugar();
-         } else {
-             alfil.desplazar(peon);
-             if (valido(alfil, peon)) peon.desplazar();
-             guardar(valido);
-             jugar();
-         }
-     }
-     
      private void guardar(boolean valido){
          if(valido){
              myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
              cola.enColar(peon.toString());
-             System.out.println(cola.toString());
+             //System.out.println(cola.toString());
          }else{
              myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = alfil;
              cola.enColar(alfil.toString());
-             if(valido(alfil, peon)){
-                myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
-                cola.enColar(peon.toString());
+             
+             if(valido(alfil,peon)){
+                 peon.desplazar();
+                 myTablero[peon.getFilaPeon() - 1][peon.getColumnaPeon() - 1] = peon;
+                 cola.enColar(peon.toString());
              }
+             
              listaTableros.add(copiaTablero());
              myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = null;
              listaColas.enColar(cola.toString());
