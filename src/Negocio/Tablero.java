@@ -59,6 +59,9 @@ public class Tablero{
      
      public void jugar(){
          if((peon.getFilaPeon() == 1 && !peon.isDireccionPeon()) || (peon.getFilaPeon() == 8 && peon.isDireccionPeon())){
+             myTablero[alfil.getFilaAlfil() - 1][alfil.getColumnaAlfil() - 1] = alfil;
+             listaTableros.add(copiaTablero());
+             listaColas.enColar(cola.toString());
              System.out.println("Finalizado");
          }
          else{

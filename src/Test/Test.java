@@ -16,9 +16,9 @@ import Vista.CrearPDF;
 public class Test {
     public static void main(String[] args) throws Exception {
          int filaAlfil = 8;
-         int columnaAlfil = 1;
+         int columnaAlfil = 8;
          int filaPeon = 8;
-         int columnaPeon = 2;
+         int columnaPeon = 7;
          boolean direccionPeon = false;
          try{
              Tablero t = new Tablero(filaAlfil,columnaAlfil,filaPeon,columnaPeon,direccionPeon);

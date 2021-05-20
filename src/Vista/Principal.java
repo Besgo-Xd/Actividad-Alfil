@@ -26,6 +26,10 @@ public class Principal extends javax.swing.JFrame {
     public Principal() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        rsscalelabel.RSScaleLabel.setScaleLabel(jlAlfil, "src/Imagenes/Alfil_Negro.png");
+        rsscalelabel.RSScaleLabel.setScaleLabel(jlPeon, "src/Imagenes/Peon_Negro.png");
+        rsscalelabel.RSScaleLabel.setScaleLabel(jlLogo, "src/Imagenes/logo.png");
     }
 
     /**
@@ -54,6 +58,9 @@ public class Principal extends javax.swing.JFrame {
         columnaPeon = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jlAlfil = new javax.swing.JLabel();
+        jlPeon = new javax.swing.JLabel();
+        jlLogo = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jDialog1.getContentPane().setLayout(jDialog1Layout);
@@ -188,6 +195,9 @@ public class Principal extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Columna:");
         panel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, -1, -1));
+        panel3.add(jlAlfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 110, 110));
+        panel3.add(jlPeon, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 110, 110));
+        panel3.add(jlLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 90, 80));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -295,6 +305,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jlAlfil;
+    private javax.swing.JLabel jlLogo;
+    private javax.swing.JLabel jlPeon;
     private javax.swing.JButton jugarBottom;
     private java.awt.Label label1;
     private java.awt.Label label2;
