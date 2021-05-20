@@ -91,12 +91,8 @@ public class Alfil extends Ficha{
                     break;
                 }
                 case (-1) -> {
-                    if (filaAlfil != 1) {
-                        if(columnaAlfil==7){
-                            filaAlfil--;
-                            columnaAlfil++;
-                        }
-                        else if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de arriba a la izquierda
+                    if(filaAlfil!=1){
+                        if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de arriba a la izquierda
                             filaAlfil--;
                             columnaAlfil--;
                         } else if (((columnaAlfil < 8) && (columnaAlfil >= peon.getColumnaPeon())) || (columnaAlfil == 1)) { //mover de arriba a la derecha
