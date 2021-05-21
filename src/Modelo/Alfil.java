@@ -62,7 +62,7 @@ public class Alfil extends Ficha{
         if (peon.isDireccionPeon()) direccionAux = 1;
         else direccionAux = -1;
             switch (direccionAux) {
-                case (1) -> {
+                case (1) : {
                     if (filaAlfil != 8) {
                         if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de abajo a la izquierda
                             filaAlfil++;
@@ -90,7 +90,7 @@ public class Alfil extends Ficha{
                     }
                     break;
                 }
-                case (-1) -> {
+                case (-1) : {
                     if(filaAlfil!=1){
                         if (((columnaAlfil > 1) && (columnaAlfil <= peon.getColumnaPeon())) || (columnaAlfil == 8)) { //mover de arriba a la izquierda
                             filaAlfil--;
@@ -119,7 +119,7 @@ public class Alfil extends Ficha{
                         }
                     break;
                     }
-                default -> {
+                default :{
                     break;
                 }
             }
